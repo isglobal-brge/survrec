@@ -1,0 +1,21 @@
+MMC                      Migratoty Motor Complex
+colon			 Rehospitalization colorectal cancer	
+Survr                    Create a Survival recurrent object
+mlefrailty.fit           Survival function estimator for correlated
+                         recurrence time data under a Gamma Frailty Model
+plot.survfitr            Plots estimated survival function from an object
+                         of class `survrec'.
+print.survfitr           Print a Short Summary of a Survival Recurrent
+                         Curve
+psh.fit                  Survival function estimator for recurrence time
+                         data using the estimator developed by Peña,
+                         Strawderman and Hollander
+summary.survfitr         Summary of a Survival of Recurrences Curve
+survfitr                 Compute a Survival Curve for Recurrent Event
+                         Data
+survdiffr                Test median survival differences (or other quantile)
+surv.search              Calculate the survival in selected times
+qsearch                  Calculate the survival time of a selected quantile
+wc.fit                   Survival function estimator for recurrence time
+                         data using the estimator developed by Wang and
+                         Chang.
