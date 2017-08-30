@@ -1,7 +1,7 @@
 Package: survrec
-Version: 1.1-8
-Date: 2010-June-01
-Depends: R (>= 1.8.0), boot
+Version: 1.1-9
+Date: 2017-August-08
+Depends: R (>= 3.0.0), boot
 Title: Survival analysis for recurrent event data
 Author: Juan R González, Edsel A Peña, and Robert L Strawderman 
 Maintainer: Juan R González <jrgonzalez@creal.cat>
