@@ -293,7 +293,7 @@ c
 	 
 	 implicit none
 	 integer sample,m,taux
-         double precision aux, rand
+         double precision aux
 c        real aux,rand
 	        
 c        call DRNUN(1,aux)	  
@@ -315,8 +315,8 @@ c        aux=rand(taux)
 	  implicit none
 	  integer n,sample2,taux
 	  double precision prob(n)
-          double precision aux, rand
-
+          double precision aux
+c	  real aux,rand
         
 c	call DRNUN(1,aux)
 c       call random_number(aux)	  
@@ -327,7 +327,7 @@ c       aux=rand(taux)
         aux=rand(0)
 	  
         sample2=1
-	do while ((prob(sample2).lt.aux).and.(sample2.lt.n))
+	do while ((prob(sample2).lt.aux).and.(sample2.le.n))
           sample2=sample2+1
 	end do
 	 

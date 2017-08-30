@@ -19,7 +19,7 @@
 
 
 
-      subroutine DistinctFailed(n,m,failed,sfailed,nfailed,
+      subroutine distinctfailed(n,m,failed,sfailed,nfailed,
      .              censored,numdistinct,distinct,numdeaths,AtRisk)
 
 c
@@ -85,7 +85,7 @@ c
           end do
         end do
 
-      end subroutine DistinctFailed
+      end subroutine distinctfailed
 
 
 
@@ -627,7 +627,7 @@ c  ojo que falta hacer el buclecillo con alpha.min y alpha.max
         
           integer i,j
         
-        real*8 alpha, mloglik, tol
+        double precision alpha, mloglik, tol
         integer IER
 
         external mloglik
@@ -662,7 +662,7 @@ c  ojo que falta hacer el buclecillo con alpha.min y alpha.max
 
 
 
-        real*8 function mloglik(alpha,P1,P2,IP3,IP4,IP5)
+        double precision function mloglik(alpha,P1,P2,IP3,IP4,IP5)
 c
 c  this function is the same that subroutine loglik
 c  is adapted for ZXGSP routine

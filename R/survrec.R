@@ -36,7 +36,7 @@ function (x, tvals)
     m <- table(x[, 1]) - 1
     sfailed <- sort(failed)
     nfailed <- length(failed)
-    summ <- .Fortran("distinctfailed", as.integer(n), as.integer(m), 
+    summ <- .Fortran("DistinctFailed", as.integer(n), as.integer(m), 
         as.double(failed), as.double(sfailed), as.integer(nfailed), 
         as.double(censored), as.integer(0), as.double(rep(0, 
             nfailed)), as.integer(rep(0, nfailed)), as.integer(rep(0, 
@@ -145,7 +145,7 @@ function (x, tvals, lambda = NULL, alpha = NULL, alpha.min, alpha.max,
     m <- table(x[, 1])-1
     sfailed <- sort(failed)
     nfailed <- length(failed)
-    summ <- .Fortran("distinctfailed", as.integer(n), as.integer(m), 
+    summ <- .Fortran("DistinctFailed", as.integer(n), as.integer(m), 
         as.double(failed), as.double(sfailed), as.integer(nfailed), 
         as.double(censored), as.integer(0), as.double(rep(0, 
             nfailed)), as.integer(rep(0, nfailed)), as.integer(rep(0, 
@@ -298,7 +298,7 @@ function (formula, data, type="MLEfrailty",...)
     stop("formula.default(object): invalid formula")
      }
 
-    m <- match.call(expand = FALSE)
+    m <- match.call(expand.dots = FALSE)
     m$type<- m$... <- NULL
     Terms <- terms(formula, "strata")
     ord <- attr(Terms, "order")
@@ -378,7 +378,7 @@ function (formula, data, q, B=500, boot.F="WC",boot.G="none",...)
     stop("formula.default(object): invalid formula")
      }
 
-    m <- match.call(expand = FALSE)
+    m <- match.call(expand.dots = FALSE)
     m$q<-  m$B<-  m$boot.F<- m$... <- NULL
     Terms <- terms(formula, "strata")
     ord <- attr(Terms, "order")
@@ -643,7 +643,8 @@ function (x,scale=1,digits = max(options()$digits - 4, 3), ...)
 
                 varmean <- sum(rev(cumsum(rev(mean))^2)[-1] * hh)                 
 
-                ans<-c(x$n,sum(x$m),sum(mean),sqrt(varmean),med,min(x$m),max(x$m),median(x$m))
+                ans<-c(x$n, sum(x$m), sum(mean), sqrt(varmean), med, min(x$m),
+                       max(x$m), median(x$m))
                 ans
 }
 
@@ -777,11 +778,6 @@ else
  invisible(x)
 }
 
-
-############ First.lib ###############
-
-.First.lib <- function(lib, pkg){
-   require(boot)
-   library.dynam("survrec", pkg, lib)
+.onLoad <- function(lib, pkg) {
+  library.dynam("survrec", pkg, lib)
 }
-############ End of .First.lib ###############

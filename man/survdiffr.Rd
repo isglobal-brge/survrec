@@ -50,8 +50,9 @@ Paper available upon request to the mantainer
 
 data(colon)
 
-#We will compare the median survival time for three dukes stages
-fit<-survdiffr(Survr(hc,time,event)~as.factor(dukes),data=colon,q=0.5)
+# We will compare the median survival time for three dukes stages
+fit<-survdiffr(Survr(hc,time,event)~as.factor(dukes),
+               data=colon, q=0.5)
 boot.ci(fit$"1", type=c("norm","basic", "perc"))
 boot.ci(fit$"2", type=c("norm","basic", "perc"))
 boot.ci(fit$"3", type=c("norm","basic", "perc"))
@@ -75,6 +76,7 @@ fit<-survdiffr(Survr(hc,time,event)~as.factor(dukes),data=colon,q=0.5,boot.F="PS
 quantile(fit$"1"$t,c(0.025,0.975))
 quantile(fit$"2"$t,c(0.025,0.975))
 quantile(fit$"3"$t,c(0.025,0.975))
+
 
 }
 
