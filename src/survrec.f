@@ -866,9 +866,9 @@ C                                                                       ZXGP1410
       SUBROUTINE ZXGSP  (F,P1,P2,IP3,IP4,IP5,A,B,TOL,XMIN,IER)          ZXGP1420
 C                                  SPECIFICATIONS FOR ARGUMENTS         ZXGP1430
       INTEGER            IP3(1),IP4,IP5,IER                             ZXGP1440
-      REAL*8               F,P1(1),P2(1),A,B,TOL,XMIN                   ZXGP1450
+      DOUBLE PRECISION     F,P1(1),P2(1),A,B,TOL,XMIN                   ZXGP1450
 C                                  SPECIFICATIONS FOR LOCAL VARIABLES   ZXGP1460
-      REAL*8               C,FA,FB,H,V1,V2,FV1,FV2                      ZXGP1470
+      DOUBLE PRECISION     C,FA,FB,H,V1,V2,FV1,FV2                      ZXGP1470
 C                                  FIRST EXECUTABLE STATEMENT           ZXGP1480
       XMIN = A                                                          ZXGP1490
       IER = 129                                                         ZXGP1500
@@ -977,7 +977,7 @@ C
       INTEGER RIGHT(2)
       INTEGER DIVER(2)
       INTEGER LOG10(2)
-      INTEGER SC, CRAY1(38), J
+      INTEGER SC, CRAY1(38), J, TEMP
       COMMON /D9MACH/ CRAY1
       SAVE SMALL, LARGE, RIGHT, DIVER, LOG10, SC
       DOUBLE PRECISION DMACH(5)
@@ -1128,12 +1128,14 @@ C     ON FIRST CALL, IF NO DATA UNCOMMENTED, TEST MACHINE TYPES.
                   CALL I1MCRY(LOG10(1), J, 16383, 10100890, 8715215)
                   CALL I1MCRY(LOG10(2), J, 0, 16226447, 9001388)
                ELSE
-                  WRITE(*,9000)
-                  STOP 779
+*                  WRITE(*,9000)
+*                  STOP 779
+                   TEMP = 0
                   END IF
             ELSE
-               WRITE(*,9000)
-               STOP 779
+*               WRITE(*,9000)
+*               STOP 779
+                TEMP = 0
                END IF
             END IF
          SC = 987
@@ -1165,6 +1167,8 @@ C     ON FIRST CALL, IF NO DATA UNCOMMENTED, TEST MACHINE TYPES.
 *       exit(1); return 0; /* some compilers demand return values */
 *}
       END
+
+
       SUBROUTINE I1MCRY(A, A1, B, C, D)
 **** SPECIAL COMPUTATION FOR OLD CRAY MACHINES ****
       INTEGER A, A1, B, C, D

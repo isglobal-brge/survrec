@@ -1,8 +1,11 @@
+useDynLib(survrec)
+
 S3method(plot,survfitr)
 S3method(lines,survfitr)
 S3method(print,survfitr)
 S3method(summary,survfitr)
 S3method(print, summary.survfitr)
+
 export(Survr)
 export(psh.fit)
 export(mlefrailty.fit)
@@ -11,6 +14,7 @@ export(survfitr)
 export(survdiffr)
 export(surv.search)
 export(q.search)
+
 import(boot)
 importFrom("graphics", "lines", "plot")
 importFrom("stats", "median", "model.extract", "qnorm", "terms")

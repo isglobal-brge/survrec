@@ -35,8 +35,8 @@ right. For a single bootstrap median survival the "~1" part of the formula is re
   boot package
 }
 \references{
-Gonzalez JR, Peña EA. Bootstraping median survival with recurrent event data. 
-IX Conferencia Española de Biometría; 2003 May 28-30; A Coruña, España.
+Gonzalez JR, Pe?a EA. Bootstraping median survival with recurrent event data. 
+IX Conferencia Espa?ola de Biometr?a; 2003 May 28-30; A Coru?a, Espa?a.
 
 Paper available upon request to the mantainer
 
@@ -48,6 +48,8 @@ Paper available upon request to the mantainer
  
 \examples{
 
+
+\dontrun{
 data(colon)
 
 # We will compare the median survival time for three dukes stages
@@ -77,6 +79,7 @@ quantile(fit$"1"$t,c(0.025,0.975))
 quantile(fit$"2"$t,c(0.025,0.975))
 quantile(fit$"3"$t,c(0.025,0.975))
 
+}
 
 }
 
