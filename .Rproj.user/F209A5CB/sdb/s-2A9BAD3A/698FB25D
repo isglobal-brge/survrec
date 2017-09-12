@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "# Windows image file caches\nThumbs.db\nehthumbs.db\n\n# Folder config file\nDesktop.ini\n\n# Recycle Bin used on file shares\n$RECYCLE.BIN/\n\n# Windows Installer files\n*.cab\n*.msi\n*.msm\n*.msp\n\n# Windows shortcuts\n*.lnk\n\n# =========================\n# Operating System Files\n# =========================\n\n# OSX\n# =========================\n\n.DS_Store\n.AppleDouble\n.LSOverride\n\n# Thumbnails\n._*\n\n# Files that might appear in the root of a volume\n.DocumentRevisions-V100\n.fseventsd\n.Spotlight-V100\n.TemporaryItems\n.Trashes\n.VolumeIcon.icns\n\n# Directories potentially created on remote AFP share\n.AppleDB\n.AppleDesktop\nNetwork Trash Folder\nTemporary Items\n.apdisk\n",
+    "created" : 1505220911146.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1662963922",
+    "id" : "698FB25D",
+    "lastKnownWriteTime" : 1481532103,
+    "last_content_update" : 1481532103,
+    "path" : "C:/Juan/CREAL/GitHub/survrec/.gitignore",
+    "project_path" : ".gitignore",
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "gitignore"
+}
