@@ -1143,8 +1143,9 @@ C     ON FIRST CALL, IF NO DATA UNCOMMENTED, TEST MACHINE TYPES.
 *    SANITY CHECK
       IF (DMACH(4) .GE. 1.0D0) STOP 778
       IF (I .LT. 1 .OR. I .GT. 5) THEN
-         WRITE(*,*) 'D1MACH(I): I =',I,' is out of bounds.'
-         STOP
+*         WRITE(*,*) 'D1MACH(I): I =',I,' is out of bounds.'
+*         STOP
+         TEMP = 0
          END IF
       D1MACH = DMACH(I)
       RETURN
