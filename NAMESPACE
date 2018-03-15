@@ -1,4 +1,4 @@
-useDynLib(survrec)
+useDynLib(survrec, .registration = TRUE)
 
 S3method(plot,survfitr)
 S3method(lines,survfitr)
