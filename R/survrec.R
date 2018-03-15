@@ -339,9 +339,10 @@ function (formula, data, type="MLEfrailty",...)
 }
 
 "survdiffr" <-
-function (formula, data, q, B=500, boot.F="WC",boot.G="none",...) 
+function (formula, data, q, B=500, boot.F="WC", boot.G="none", 
+          seed=123456789, ...) 
 {
-   
+  .Random.seed <- seed
   method.F <- charmatch(boot.F, c("PSH","WC", "semiparametric"), nomatch= 0)
    if(method.F == 0)
 	{

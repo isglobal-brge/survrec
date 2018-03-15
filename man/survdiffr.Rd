@@ -7,7 +7,7 @@
   subjects. We can compute confidence intervals using boot package. 
 }
 \usage{
-survdiffr(formula, data, q, B = 500, boot.F = "WC", boot.G = "none", ...)
+survdiffr(formula, data, q, B = 500, boot.F = "WC", boot.G = "none", seed=123456789, ...)
 }
 
 \arguments{
@@ -25,6 +25,7 @@ right. For a single bootstrap median survival the "~1" part of the formula is re
   \item{boot.G}{a character string specifying if we also resample form censored empirical 
   distribution. Possible value are either "none" or "empirical". The default is "none".
   Only the first words are required, e.g "n","e"}
+  \item{seed}{random seed to peform boostrap-based estimates. Default is 123456789}
   \item{\dots}{additional arguments passed to the type of estimator.}
 }
 \details{
