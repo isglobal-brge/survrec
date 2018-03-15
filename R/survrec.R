@@ -342,9 +342,7 @@ function (formula, data, type="MLEfrailty",...)
 function (formula, data, q, B=500, boot.F="WC",boot.G="none",...) 
 {
    
-  stop("This function is not working anymore. Please contact the maintiner")
-  
-   method.F <- charmatch(boot.F, c("PSH","WC", "semiparametric"), nomatch= 0)
+  method.F <- charmatch(boot.F, c("PSH","WC", "semiparametric"), nomatch= 0)
    if(method.F == 0)
 	{
 	  stop("bootstrap froom F must be PSH WC or semiparametric")
