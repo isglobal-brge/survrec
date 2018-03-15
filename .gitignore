@@ -12,14 +12,16 @@
 /*.tar.gz
 
 # Output files from R CMD check
-/*.Rcheck/
+ /*.Rcheck/
+
+rawData/
 
 # RStudio files
 .Rproj.user/
 
 # produced vignettes
-# vignettes/*.html
-# vignettes/*.pdf
+vignettes/*.html
+vignettes/*.pdf
 
 # OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
 .httr-oauth
@@ -31,4 +33,7 @@
 # Temporary files created by R markdown
 *.utf8.md
 *.knit.md
-.Rproj.user
+
+# C++
+*.o
+*.dll
