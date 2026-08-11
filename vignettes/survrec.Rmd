@@ -1,0 +1,226 @@
+---
+title: "survrec: survival analysis for recurrent event data"
+subtitle: "Dolors Pelegrí-Sisó, Juan R. González, Edsel A. Peña and Robert L. Strawderman"
+author: |
+   Institute for Global Health (ISGlobal), Barcelona, Spain
+   Bioinformatics Research Group in Epidemiology (BRGE)
+   https://brge.isglobal.org
+date: "`r Sys.Date()`"
+package: "`r BiocStyle::pkg_ver('survrec')`"
+abstract: |
+  survrec estimates the survival function of the time between occurrences
+  of a recurrent event -- repeated hospitalizations, tumour relapses,
+  successive failures of a machine -- from censored gap-time data. It
+  implements the generalized product-limit estimator of Peña, Strawderman
+  and Hollander (2001), the estimator of Wang and Chang (1999) for
+  correlated inter-occurrence times, and maximum likelihood estimation
+  under a gamma frailty model, together with bootstrap comparisons of
+  survival quantiles between groups. This vignette works through a
+  complete analysis of two real datasets.
+output:
+  BiocStyle::html_document:
+    number_sections: true
+    toc: yes
+    toc_float: yes
+    fig_caption: yes
+bibliography: references.bib
+link-citations: true
+vignette: >
+  %\VignetteIndexEntry{survrec: survival analysis for recurrent event data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>", message = FALSE,
+  warning = FALSE, fig.width = 6.2, fig.height = 5,
+  fig.align = "center"
+)
+set.seed(1)
+```
+
+# Introduction
+
+In many follow-up studies the event of interest is not terminal: a
+patient can be rehospitalized several times, a tumour can relapse, a
+machine fails and is repaired. The natural response is then the
+*gap time*, the time elapsed between consecutive occurrences, and each
+subject contributes as many gap times as observed events plus one final
+censored gap (from the last event to the end of follow-up).
+
+Estimating the common survival function of the gap times is not a matter
+of pooling them into a Kaplan-Meier estimator: the last gap of every
+subject is always censored, longer gaps are more likely to be cut by the
+end of the study, and gap times within a subject may be correlated.
+`survrec` implements three estimators designed for this setting:
+
+* **PSH**, the generalized product-limit estimator of
+  @pena2001, valid when the gap times of a subject are independent and
+  identically distributed (a renewal process);
+* **Wang-Chang**, the estimator of @wang1999, which remains consistent
+  when gap times are correlated within subjects;
+* **MLE frailty**, maximum likelihood under a gamma frailty model
+  [@pena2001], where a subject-specific random effect
+  \eqn{Z_i \sim \Gamma(\alpha, \alpha)} induces the correlation and the
+  marginal survival is \eqn{S(t) = [\alpha/(\alpha + \Lambda_0(t))]^\alpha}.
+
+The comparison of the three estimates on the same data is itself
+informative: agreement between PSH and the frailty estimate suggests
+independent gaps (large \eqn{\alpha}), while a Wang-Chang curve separated
+from the PSH one points to within-subject correlation.
+
+```{r load}
+library(survrec)
+```
+
+# The data
+
+We use the two datasets shipped with the package. `MMC` contains the
+times of the migratory motor complex, a cyclic intestinal motility
+pattern, for 19 healthy individuals [@husebye1990]:
+
+```{r data-mmc}
+data(MMC)
+head(MMC)
+```
+
+`colon` records rehospitalizations after surgery in 403 colorectal
+cancer patients, with Dukes stage and chemotherapy as covariates
+[@gonzalez2005]:
+
+```{r data-colon}
+data(colon)
+head(colon)
+```
+
+The response of every function in the package is a `Survr` object built
+from the subject identifier, the gap times and the event indicator
+(1 = event, 0 = the final censored gap of each subject):
+
+```{r survr}
+x <- Survr(MMC$id, MMC$time, MMC$event)
+```
+
+# Estimating the survival of the gap times
+
+`survfitr()` is the formula interface; `type` selects the estimator:
+
+```{r fit-basic}
+fit <- survfitr(Survr(id, time, event) ~ 1, data = MMC, type = "wang-chang")
+fit
+```
+
+`summary()` returns the estimated curve, and `quantile()` the survival
+times of any set of quantiles:
+
+```{r quantiles}
+quantile(fit, probs = c(0.25, 0.5, 0.75))
+```
+
+The fitted curve can be drawn with `autoplot()` (a `ggplot2` graphic;
+the classic base-graphics `plot()` method is also kept). Pointwise
+confidence bands use the log-minus-log transformation by default, so
+they always stay inside \eqn{[0, 1]}:
+
+```{r autoplot-basic, fig.cap = "Wang-Chang estimate of the MMC gap-time survival."}
+autoplot(fit)
+```
+
+## Comparing the three estimators
+
+`plotEstimators()` fits and overlays the three estimators:
+
+```{r estimators, fig.cap = "The three estimators on the MMC data."}
+plotEstimators(x)
+```
+
+The three curves are close, which suggests little within-subject
+correlation. The frailty fit makes this quantitative through
+\eqn{\alpha} (the *larger* \eqn{\alpha}, the *weaker* the association
+between gap times of a subject):
+
+```{r frailty}
+mle <- mlefrailty_fit(x, alpha.console = FALSE)
+mle$alpha
+```
+
+The posterior frailty estimates of each subject are also returned;
+values spread away from 1 would indicate heterogeneity between subjects:
+
+```{r frailties}
+round(mle$frailties, 3)
+```
+
+# Groups and covariates
+
+A term on the right-hand side of the formula estimates one curve per
+group. For the colon data, Dukes stage:
+
+```{r colon-fit, fig.cap = "PSH estimates of the rehospitalization gap times by Dukes stage."}
+fit.dukes <- survfitr(Survr(hc, time, event) ~ as.factor(dukes),
+  data = colon, type = "pena"
+)
+autoplot(fit.dukes)
+```
+
+The estimated curves in tidy format, ready for any further processing:
+
+```{r tidy}
+head(as.data.frame(fit.dukes))
+```
+
+The mean cumulative function offers a complementary, calendar-time view
+of the process -- the expected number of events per subject up to each
+time point:
+
+```{r mcf, fig.cap = "Mean cumulative number of rehospitalizations by Dukes stage."}
+autoplot(mcf(Survr(hc, time, event) ~ as.factor(dukes), data = colon))
+```
+
+# Comparing survival quantiles between groups
+
+`survdiffr()` obtains bootstrap replicates of a survival quantile (the
+median by default) for each group. Three resampling schemes are
+available: nonparametric from the PSH or the Wang-Chang estimate of the
+gap-time distribution, and semiparametric under the fitted frailty model
+[@gonzalez2003]. Resampling uses R's random number generator, so a seed
+makes the analysis reproducible.
+
+```{r survdiffr}
+b <- survdiffr(Survr(hc, time, event) ~ as.factor(dukes),
+  data = colon, q = 0.5, B = 199, boot.F = "WC", seed = 2026
+)
+```
+
+`summary()` reports each group's observed median with a percentile
+bootstrap interval, and every pairwise difference with its interval and
+a two-sided bootstrap p-value:
+
+```{r survdiffr-summary}
+summary(b)
+```
+
+```{r survdiffr-plot, fig.cap = "Bootstrap distributions of the median rehospitalization-free time."}
+autoplot(b)
+```
+
+Each group's element is a standard `boot` object, so the intervals of
+the `boot` package remain available:
+
+```{r bootci}
+boot::boot.ci(b$"1", type = c("norm", "basic", "perc"))
+```
+
+The re-estimation of the survival curve on each replicate runs in
+parallel when the package is compiled with OpenMP; `survrecThreads()`
+caps the number of threads (the resampling itself is serial on R's RNG,
+so results do not depend on the thread count).
+
+# Session information
+
+```{r session}
+sessionInfo()
+```
+
+# References

@@ -1,0 +1,5 @@
+# OpenMP is used in the computational core (parallel loops free of R API
+# calls). On toolchains without OpenMP (e.g. Apple clang) the variable is
+# empty and the code compiles serially without changes.
+PKG_CXXFLAGS = $(SHLIB_OPENMP_CXXFLAGS)
+PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS)
