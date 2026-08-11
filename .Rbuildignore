@@ -1,2 +1,8 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^\.github$
+^tools$
+^\.DS_Store$
+^\.gitattributes$
+^cran-comments\.md$
+^docs$
