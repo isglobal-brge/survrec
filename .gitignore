@@ -37,3 +37,4 @@ vignettes/*.pdf
 # C++
 *.o
 *.dll
+cran-comments.md

@@ -1,7 +1,7 @@
 Package: survrec
 Type: Package
 Version: 2.0.0
-Date: 2026-08-06
+Date: 2026-08-31
 Title: Survival Analysis for Recurrent Event Data
 Authors@R: c(
     person(given = "Dolors",
