@@ -41,13 +41,11 @@ dropped from the difference. The p-value is
 \eqn{D}.
 }
 \examples{
-\dontrun{
 data(colon)
 fit <- survdiffr(Survr(hc, time, event) ~ as.factor(dukes),
   data = colon, q = 0.5, seed = 1
 )
 summary(fit)
-}
 }
 \seealso{
 \code{\link[=survdiffr]{survdiffr()}}, \code{\link[boot:boot.ci]{boot::boot.ci()}}

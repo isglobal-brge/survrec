@@ -36,13 +36,11 @@ survdiffr_reps <- function(b) {
 #' @seealso [survdiffr()], [boot::boot.ci()]
 #'
 #' @examples
-#' \dontrun{
 #' data(colon)
 #' fit <- survdiffr(Survr(hc, time, event) ~ as.factor(dukes),
 #'   data = colon, q = 0.5, seed = 1
 #' )
 #' summary(fit)
-#' }
 #' @export
 summary.survdiffr <- function(object, level = 0.95, ...) {
   a <- (1 - level) / 2
@@ -108,13 +106,11 @@ print.summary.survdiffr <- function(x, digits = max(options()$digits - 4, 3),
 #' @seealso [survdiffr()], [summary.survdiffr()], [theme_survrec()]
 #'
 #' @examples
-#' \dontrun{
 #' data(colon)
 #' fit <- survdiffr(Survr(hc, time, event) ~ as.factor(dukes),
 #'   data = colon, q = 0.5, seed = 1
 #' )
 #' autoplot(fit)
-#' }
 #' @export
 autoplot.survdiffr <- function(object, ...) {
   k <- names(object)

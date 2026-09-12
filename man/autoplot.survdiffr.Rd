@@ -21,13 +21,11 @@ estimate never below the requested level) are excluded from the
 densities and reported in the caption.
 }
 \examples{
-\dontrun{
 data(colon)
 fit <- survdiffr(Survr(hc, time, event) ~ as.factor(dukes),
   data = colon, q = 0.5, seed = 1
 )
 autoplot(fit)
-}
 }
 \seealso{
 \code{\link[=survdiffr]{survdiffr()}}, \code{\link[=summary.survdiffr]{summary.survdiffr()}}, \code{\link[=theme_survrec]{theme_survrec()}}

@@ -15,6 +15,13 @@
 #' @param x,tvals,lambda,alpha,alpha.min,alpha.max,tol,maxiter,alpha.console
 #'   see the replacement functions.
 #' @param time,surv,f,q see the replacement functions.
+#'
+#' @return Each deprecated function emits a deprecation warning and then
+#'   returns exactly what its replacement returns: `psh.fit()`, `wc.fit()`
+#'   and `mlefrailty.fit()` return a `survfitr` object, `surv.search()`
+#'   returns the interpolated survival probabilities as a numeric vector,
+#'   and `q.search()` returns the estimated quantile as a single number.
+#'   See the replacement functions for the full description of the value.
 #' @name survrec-deprecated
 #' @keywords internal
 NULL

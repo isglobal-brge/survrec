@@ -51,7 +51,6 @@
 #' @seealso [survfitr()], [boot::boot.ci()], [survrecThreads()]
 #'
 #' @examples
-#' \dontrun{
 #' data(colon)
 #'
 #' # compare the median survival time between the three Dukes stages
@@ -72,7 +71,6 @@
 #' fit <- survdiffr(Survr(hc, time, event) ~ as.factor(dukes),
 #'   data = colon, q = 0.5, boot.F = "PSH", seed = 1
 #' )
-#' }
 #' @keywords survival
 #' @export
 survdiffr <- function(formula, data, q, B = 500, boot.F = "WC",

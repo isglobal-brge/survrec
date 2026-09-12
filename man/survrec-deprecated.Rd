@@ -34,6 +34,14 @@ q.search(f, q = 0.5)
 
 \item{time, surv, f, q}{see the replacement functions.}
 }
+\value{
+Each deprecated function emits a deprecation warning and then
+returns exactly what its replacement returns: \code{psh.fit()}, \code{wc.fit()}
+and \code{mlefrailty.fit()} return a \code{survfitr} object, \code{surv.search()}
+returns the interpolated survival probabilities as a numeric vector,
+and \code{q.search()} returns the estimated quantile as a single number.
+See the replacement functions for the full description of the value.
+}
 \description{
 The dot-separated names of survrec 1.x were renamed to snake_case in
 version 2.0.0. The old names still work but emit a deprecation warning

@@ -121,7 +121,7 @@ mlefrailty_fit <- function(x, tvals, lambda = NULL, alpha = NULL, alpha.min,
   }
   if (is.null(alpha)) {
     if (alpha.console) {
-      cat("\nNeeds to Determine a Seed Value for Alpha")
+      message("Needs to determine a seed value for alpha")
     }
     if (missing(alpha.min)) {
       alpha.min <- 0.5
@@ -139,7 +139,7 @@ mlefrailty_fit <- function(x, tvals, lambda = NULL, alpha = NULL, alpha.min,
       as.double(alpha.min), as.double(alpha.max), as.double(tol.max)
     )
     if (alpha.console) {
-      cat("\n Seed Alpha: ", alpha)
+      message("Seed alpha: ", alpha)
     }
   }
 
@@ -164,9 +164,7 @@ mlefrailty_fit <- function(x, tvals, lambda = NULL, alpha = NULL, alpha.min,
   }
   alpha <- Estimates$alpha
   if (alpha.console) {
-    cat("\n ")
-    cat("\n Alpha estimate=", alpha)
-    cat("\n ")
+    message("Alpha estimate = ", alpha)
   }
   lambda <- Estimates$lambda
   frailties <- Estimates$frailties
@@ -175,10 +173,9 @@ mlefrailty_fit <- function(x, tvals, lambda = NULL, alpha = NULL, alpha.min,
     tvalslen <- length(tvals)
   }
   if (!(status == 1)) {
-    cat("\n\n WARNING: No estimates will be provided!")
-    cat(
-      "\n Value of (status,alpha) from iteration is ",
-      c(status, alpha), "\n\n"
+    warning(
+      "no estimates will be provided: value of (status, alpha) ",
+      "from iteration is ", status, ", ", alpha
     )
     alpha <- NA
     survfuncMLE <- c(rep(NA, numdistinct))

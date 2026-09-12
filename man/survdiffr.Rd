@@ -71,7 +71,6 @@ of the survival curve on each replicate can run in parallel, see
 which refits the frailty model on every replicate) can be slow.
 }
 \examples{
-\dontrun{
 data(colon)
 
 # compare the median survival time between the three Dukes stages
@@ -92,7 +91,6 @@ quantile(fit$"1"$t, c(0.025, 0.975))
 fit <- survdiffr(Survr(hc, time, event) ~ as.factor(dukes),
   data = colon, q = 0.5, boot.F = "PSH", seed = 1
 )
-}
 }
 \references{
 González, J.R. and Peña, E.A. (2003). Bootstrapping median survival
